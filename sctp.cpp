@@ -5,12 +5,12 @@ sctp::sctp()
     Connected.store(0);
 
     if((client_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP)) == -1)
-        throw "Client socket create error";
+        throw std::runtime_error("Client socket create error");
 
 
     //enable some notifications
     if(enable_notifications() != 0)
-        throw "Error enabling notifications.";
+        throw std::runtime_error("Error enabling notifications.");
 
 
     struct sockaddr_in local_addr;
@@ -20,7 +20,7 @@ sctp::sctp()
     local_addr.sin_port = htons(sctp_port);
     int bind_errno = bind(client_fd, (struct sockaddr *)&local_addr, sizeof(local_addr));
     if (bind_errno != 0)
-        throw strerror(bind_errno);
+        throw std::runtime_error(strerror(bind_errno));
 
 
 
@@ -29,15 +29,14 @@ sctp::sctp()
     peer_addr.sin_family = AF_INET;
     peer_addr.sin_port = htons(sctp_port);
     if(inet_pton(AF_INET, server_ip, &(peer_addr.sin_addr)) != 1)
-        throw "Error converting IP address to sockaddr_in structure";
+        throw std::runtime_error("Error converting IP address to sockaddr_in structure");
 
 
 
     if(connect(client_fd, (struct sockaddr*)&peer_addr, sizeof(peer_addr)) == -1)
-        throw "Error to Connect";
+        throw std::runtime_error("Error to Connect");
 
 
-    printf("Connected\n");
 
     char buf[1024];
     while(1) {

@@ -11,6 +11,7 @@
 #include <arpa/inet.h>	//for inet_ntop()
 #include <atomic>
 #include <errno.h>
+#include <stdexcept>
 
 
 class sctp

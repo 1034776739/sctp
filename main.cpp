@@ -5,8 +5,13 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    \
+
+    try
+    {
     SctpConn = new sctp();
+    }
+    catch(exception& e)
+            cout << e.what() << endl;
+
     return 0;
 }
