@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(SIGTRAN)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-c++11-narrowing -Wno-narrowing")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wwrite-strings -Wno-narrowing")
 
 find_package( Boost COMPONENTS system thread filesystem regex system signals REQUIRED )
 link_directories( ${Boost_LIBRARY_DIRS} )
@@ -15,5 +15,5 @@ set(SOURCE_FILES
         sctp.cpp
      )
 
-add_executable(sctp ${SOURCE_FILES})
-target_link_libraries(sctp ${Boost_LIBRARIES} pthread)
+add_executable(sctp-cli ${SOURCE_FILES})
+target_link_libraries(sctp-cli ${Boost_LIBRARIES} pthread)
